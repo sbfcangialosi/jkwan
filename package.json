@@ -1,0 +1,13 @@
+{
+  "name" : "",
+  "version" : "",
+  "description" : "Portfolio website for Jacqueline Kwan",
+  "main" : "app.js",
+  "private" : "true",
+  "dependencies" : {
+    "express" : "~4.0.0",
+    "jade" : "*",
+    "stylus" : "*",
+    "nib" : "*"
+  }
+}
