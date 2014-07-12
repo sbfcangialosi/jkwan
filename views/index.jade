@@ -1,8 +1,11 @@
 doctype html
 html
+  head
+    title= title
+    link(rel='stylesheet', href='/public/styles/semantic.min.css')
   body
-    h1 #{name}
+    h1(class="ui teal header") #{name}
     p Testing static text
 
-  script(src="bower_components/jquery/jquery.js")
-  script(src="bower_components/semantic-ui/build/packaged/javascript/semantic.min.js")
+  script(src="/public/js/jquery.min.js")
+  script(src="/public/js/semantic.min.js")

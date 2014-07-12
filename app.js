@@ -20,12 +20,15 @@ app.accesslog = function(req) {
 }
 
 function compile(str, path) {
+	console.log("Compiling " + str);
 	return stylus(str).set('filename', path).use(nib());
 }
 app.use(stylus.middleware({ 
 	src: __dirname + '/public', 
 	compile: compile 
 }));
+
+app.use(express.static(__dirname, 'public'));
 
 app.get('/', function(req,res) {
 	res.render('index',{'name' : 'Jackie Kwan'});
