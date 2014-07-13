@@ -1,7 +1,8 @@
 var express = require('express'),
 	stylus = require('stylus'),
 	nib = require('nib'),
-	fs = require('fs');
+	fs = require('fs'),
+	request = require('request');
 
 var app = express();
 
@@ -32,7 +33,17 @@ app.use(stylus.middleware({
 app.use(express.static(__dirname, 'public'));
 
 app.get('/', function(req,res) {
-	res.render('index');
+	photos = []
+	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=5', function (err, resp, body) {
+		if (!err && resp.statusCode == 200) {
+			instagram = JSON.parse(body);
+			instagram['data'].forEach(function(item){
+				photos.push(String(item['images']['thumbnail']['url']));
+			});
+		}
+		res.render('index', {'photos' : photos});
+	});
+	
 });
 
 app.listen(app.getPort(), function() {
