@@ -5,33 +5,38 @@ html
     link(rel='stylesheet', href='/public/styles/semantic.min.css')
     link(rel='stylesheet', href='/public/styles/index.css')
   body
+    div.wrapper
+      div.sidebar
+        a(href="http://facebook.com/eternallyjackie")
+          img.roomy(src="/public/images/facebook.png")
+        a(href="http://instagram.com/eternallyjackie")
+          img.roomy(src="/public/images/instagram.png")
+        a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
+          img.roomy(src="/public/images/linkedin.png")
+        a(href="https://twitter.com/eternallyjackie")
+          img.roomy(src="/public/images/twitter.png")
+
     div.container
       div
         center
           img(height="200", width="200", src="/public/images/jackie-circle.png")
       div
         center
-          h1(class="ui teal header") Jacqueline Kwan
+          h1 Jacqueline Kwan 
       div
         center
-          p Aut viam inveniam aut faciam
+          q
+            span.quote Aut viam inveniam aut faciam
           p I will either find a way or make one.
-      div
-        center
-          a(href="http://facebook.com/eternallyjackie")
-            img.roomy(src="/public/images/facebook.png")
-          a(href="http://instagram.com/eternallyjackie")
-            img.roomy(src="/public/images/instagram.png")
-          a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
-            img.roomy(src="/public/images/linkedin.png")
-          a(href="https://twitter.com/eternallyjackie")
-            img.roomy(src="/public/images/twitter.png")
+      br
       div
         center
           p Nineteen years young.
       div
         center
           p Aspiring financial consultant.
+      div.ui.horizontal.icon.divider.clipped
+        i.circular.small.heart.icon
       div
         center
           a(class='twitter-timeline', href='https://twitter.com/eternallyjackie', data-widget-id='487954729893236736') Tweets by @eternallyjackie
@@ -41,3 +46,5 @@ html
 
   script(src="/public/js/jquery.min.js")
   script(src="/public/js/semantic.min.js")
+
+ 
