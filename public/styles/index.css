@@ -10,28 +10,24 @@
 }
 
 @font-face {
-    font-family: 'alex_brush';
-    src: url(AlexBrush-Regular.ttf);
+    font-family: 'typewriter';
+    src: url(Typewriter-Regular.otf);
 }
 
 @font-face {
-    font-family: 'fragment';
-    src: url(Fragmentcore.otf);
+    font-family: 'jenna';
+    src: url(JennaSue.ttf);
 }
 
-@font-face {
-    font-family: 'old_news';
-    src: url(OldNewspaperTypes.ttf);
-}
 
 p {
-	font-family : 'fragment';
+	font-family : 'typewriter';
     font-size: 17.5px;
     opacity: .65;
 }
 
 h1 {
-    font-family : 'fragment';
+    font-family : 'typewriter';
     font-size: 55px;
     opacity: .65;
 }
@@ -49,9 +45,9 @@ h1 {
 .quote {
     margin-top: -16px;
     height: auto;
-    font-size: 1.5em;
-    font-family: 'fragment';
-    opacity: .5;
+    font-size: 2em;
+    font-family: 'jenna';
+    opacity: .7;
     color: #00B5AD;
 }
 
