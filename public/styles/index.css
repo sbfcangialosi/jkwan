@@ -24,17 +24,23 @@ p {
 	font-family : 'typewriter';
     font-size: 17.5px;
     opacity: .65;
+    margin: 10px;
 }
 
 h1 {
     font-family : 'typewriter';
     font-size: 55px;
     opacity: .65;
+    margin: .3em;
+}
+
+a {
+    text-decoration: none;
+    color: #778899;
 }
 
 .roomy { 
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 5px;
   padding-left:10px;
   padding-right:10px;
 }
@@ -45,7 +51,7 @@ h1 {
 }
 
 .quote {
-    margin-top: -16px;
+    margin-top: -13px;
     height: auto;
     font-size: 2em;
     font-family: 'jenna';
@@ -60,7 +66,6 @@ h1 {
     height: 250px;
     margin: auto;
     position:absolute;
-    top: 0; bottom: 0;
 }
 
 
