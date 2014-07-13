@@ -1,6 +1,7 @@
 var express = require('express'),
 	stylus = require('stylus'),
-	nib = require('nib');
+	nib = require('nib'),
+	fs = require('fs');
 
 var app = express();
 
@@ -31,7 +32,7 @@ app.use(stylus.middleware({
 app.use(express.static(__dirname, 'public'));
 
 app.get('/', function(req,res) {
-	res.render('index',{'name' : 'Jackie Kwan'});
+	res.render('index');
 });
 
 app.listen(app.getPort(), function() {
