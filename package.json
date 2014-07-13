@@ -9,7 +9,9 @@
     "jade": "*",
     "nib": "*",
     "normalize.css": "^3.0.1",
-    "stylus": "*"
+    "request": "^2.37.0",
+    "stylus": "*",
+    "twit": "^1.1.15"
   },
   "repository": {
     "type": "git",
