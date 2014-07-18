@@ -1,15 +1,4 @@
 @font-face {
-    font-family: 'klartext_monolight';
-    src: url('KlartextMono-Light-webfont.eot');
-    src: url('KlartextMono-Light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('KlartextMono-Light-webfont.woff') format('woff'),
-         url('KlartextMono-Light-webfont.ttf') format('truetype'),
-         url('KlartextMono-Light-webfont.svg#klartext_monolight') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'typewriter';
     src: url(Typewriter-Regular.otf);
 }
@@ -18,7 +7,6 @@
     font-family: 'jenna';
     src: url(JennaSue.ttf);
 }
-
 
 p {
 	font-family : 'typewriter';
@@ -45,6 +33,12 @@ a {
   padding-right:10px;
 }
 
+.breath {
+    margin: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 .quote {
     margin-top: -13px;
     height: auto;
@@ -61,20 +55,15 @@ a {
     padding-bottom: .75em;
     border : 1px solid #e8e8e8;
     border-radius: 7px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .handle {
     font-family: 'typewriter';
     opacity: .7;
     font-size: 1.3em;
-}
-
-.sidebar {
-    width: 100px;
-    height: 250px;
-    opacity: .7;
-    margin: auto;
-    position:absolute;
 }
 
 .rounded {

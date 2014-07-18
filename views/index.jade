@@ -59,19 +59,21 @@ html
                   center: span.handle @eternallyjackie
                 .column
                   i.instagram.large.icon.link.icon(style="float: right;")
-              .two.column.divided.row
-                //- tweets
-                .column 
-                  a(class="twitter-timeline",href="https://twitter.com/eternallyjackie",data-widget-id="490171119408672768")
-                    Tweets by @eternallyjackie
+              .ui.grid
+                .ui.stackable.grid
+                  .two.column.divided.row
+                    //- tweets
+                    .column 
+                      center: a(class="twitter-timeline",href="https://twitter.com/eternallyjackie",data-widget-id="490171119408672768")
+                        Tweets by @eternallyjackie
 
-                //- instagram
-                .column 
-                  .instagram-content
-                    center
-                      - photos.forEach(function(photo) {
-                          img.polaroid.roomy(src=photo, title="Jun 06, 2012")
-                      - });
+                    //- instagram
+                    .column 
+                      .instagram-content
+                        center
+                          - photos.forEach(function(photo) {
+                              img.polaroid.breath(src=photo, title="Jun 06, 2012")
+                          - });
 
               .row
                 .column
@@ -90,6 +92,5 @@ html
 
   script(src="/public/js/jquery.min.js")
   script(src="/public/js/semantic.min.js")
-  script(src="/public/js/instagram.min.js")
-  script(src="/public/js/index.js")
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  script.
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
