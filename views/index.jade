@@ -5,69 +5,91 @@ html
     link(rel='stylesheet', href='/public/styles/semantic.min.css')
     link(rel='stylesheet', href='/public/styles/index.css')
   body
-    div.wrapper
-      div.sidebar
-        div.item.roomy
-          a(href="http://facebook.com/eternallyjackie")
-            i.circular.facebook.large.icon.link.icon
-        div.item.roomy
-          a(href="http://instagram.com/eternallyjackie")
-            i.circular.instagram.large.icon.link.icon
-        div.item.roomy
-          a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
-            i.circular.linkedin.large.icon.link.icon
-        div.item.roomy
-          a(href="https://twitter.com/eternallyjackie")
-            i.circular.twitter.large.icon.link.icon
-        div.item.roomy
-          a(href="mailto:jkwan@terpmail.umd.edu")
-            i.circular.mail.large.icon.link.icon
-        div.item.roomy
-          a(href="/Resume_JKwan.pdf")
-            i.circular.suitcase.large.icon.link.icon
 
-    div.container
-      div(style="margin-top:40px")
-        center
-          img(height="236", width="260", src="/public/images/jackie.jpg")
-      div
-        center
-          h1 Jacqueline Kwan 
-      div
-        center
-          q
-            span.quote Aut viam inveniam aut faciam
-          p I will either find a way or make one.
-      br
-      div
-        center
-          p Nineteen years young.
-      div
-        center
-          p Aspiring financial consultant.
-      div.ui.grid
-        div.four.wide.column
-        div.eight.wide.column
-          div.ui.horizontal.icon.divider
+    .container(style="margin-top:30px")
+      //- toplevel grid
+      .ui.stackable.grid 
+        .middle.aligned.row
+          //- lefthand side column
+          .five.wide.column 
+
+            .ui.grid  //- lefthand inner grid
+              .row //- latin quote
+                .column
+                  center
+                    q
+                      span.quote Aut viam inveniam aut faciam
+                    p I will either find a way or make one.
+
+              .row // - picture
+                .column
+                  center
+                    img.rounded(height="236", width="260", src="/public/images/jackie.jpg")
+
+              .row //- name
+                .column
+                  center
+                    h1 Jacqueline Kwan
+
+              .row //- description
+                .column
+                  center
+                    p Nineteen years young.
+                    p Aspiring financial consultant.
+
+              .row //- icons
+                .column
+                  center
+                    a(href="mailto:jkwan@terpmail.umd.edu")
+                      i.circular.mail.large.icon.link.icon
+                    a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
+                      i.circular.linkedin.large.icon.link.icon
+                    a(href="http://facebook.com/eternallyjackie")
+                      i.circular.facebook.large.icon.link.icon
+                    a(href="/Resume_JKwan.pdf")
+                      i.circular.suitcase.large.icon.link.icon
+
+          //- righthand side column
+          .ten.wide.column
+            .ui.grid
+              .middle.aligned.three.column.row
+                .column
+                  i.twitter.large.icon.link.icon
+                .column
+                  center: span.handle @eternallyjackie
+                .column
+                  i.instagram.large.icon.link.icon(style="float: right;")
+              .two.column.divided.row
+                //- tweets
+                .column 
+                  a(class="twitter-timeline",href="https://twitter.com/eternallyjackie",data-widget-id="490171119408672768")
+                    Tweets by @eternallyjackie
+
+                //- instagram
+                .column 
+                  .instagram-content
+                    center
+                      - photos.forEach(function(photo) {
+                          img.polaroid.roomy(src=photo, title="Jun 06, 2012")
+                      - });
+
+              .row
+                .column
+                  <iframe width='100%' height='375px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA'></iframe>
+        .one.wide.column
+      .ui.grid
+        .one.wide.column
+        .fourteen.wide.column
+          .ui.horizontal.icon.divider
             i.small.star.icon
             i.small.star.icon.roomy
             i.small.star.icon
-        div.four.wide.column
-      div.instagram
-        center
-          - photos.forEach(function(photo) {
-              img.polaroid.roomy(src=photo, title="Jun 06, 2012")
-          - });
-      div.twitter
-        - tweets.forEach(function(tweet) {
-          - if (typeof(tweet) == 'string') {
-            li= tweet
-          - }
-        - });
+        .one.wide.column
+        .sixteen.wide.column.copyright
+          center: p &copy; Jacqueline Kwan
 
   script(src="/public/js/jquery.min.js")
   script(src="/public/js/semantic.min.js")
   script(src="/public/js/instagram.min.js")
   script(src="/public/js/index.js")
-
- 
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

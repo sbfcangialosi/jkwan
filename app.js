@@ -45,7 +45,7 @@ app.get('/', function(req,res) {
 	photos = []
 	tweets = []
 	counter = 0
-	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=5', function (err, resp, body) {
+	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=4', function (err, resp, body) {
 		if (!err && resp.statusCode == 200) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
@@ -69,6 +69,10 @@ app.get('/', function(req,res) {
 			});
 	});
 	
+});
+
+app.get('/1', function(req,res) {
+  res.render('index')
 });
 
 app.listen(app.getPort(), function() {
