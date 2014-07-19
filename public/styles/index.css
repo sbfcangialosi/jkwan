@@ -85,7 +85,3 @@ q:after {
     opacity: .55;
     font-family: Times New Roman; 
 }
-
-.ui.horizontal.divider::after, .ui.horizontal.divider::before {
-    width: 45%;
-}
