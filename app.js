@@ -67,12 +67,13 @@ app.get('/', function(req,res) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
 				t = new Date(1970,0,1);
+				t.setSeconds(item['created_time'])
 				photo = {
 					'thumbnail' : item['images']['thumbnail']['url'],
 					'link' : item['link'],
 					'numComments' : item['comments']['count'],
 					'numLikes' : item['likes']['count'],
-					'created' : t.setSeconds(item['created_time']),
+					'created' : t.toDateString(),
 					'text' : item['caption']['text'],
 					'type' : 'insta',
 					'brick_id' : getRandomInRange(1,5)
@@ -108,7 +109,6 @@ app.get('/', function(req,res) {
 							tweet.favorite_count = item['favorite_count'];
 							tweet.is_retweet = false;
 						}
-						console.log('media' in item['entities'])
 						if('media' in item['entities']) {
 							tweet.media = item['entities']['media'][0]['media_url'];
 						}
