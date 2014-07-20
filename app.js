@@ -15,6 +15,7 @@ var T = new Twit({
 	access_token_secret: '6OThS6l2NYBEs4QFIcnawSucjWlEcujLKyRFTFECirzP1'
 });
 
+
 app.set('view engine', 'jade'); //templates located in /views/*.jade
 app.set('case sensitive routing', 'true');
 
@@ -34,6 +35,7 @@ function compile(str, path) {
 	console.log("Compiling " + str);
 	return stylus(str).set('filename', path).use(nib());
 }
+
 app.use(stylus.middleware({ 
 	src: __dirname + '/public', 
 	compile: compile 
@@ -41,40 +43,87 @@ app.use(stylus.middleware({
 
 app.use(express.static(__dirname, 'public'));
 
+function getRandomInRange(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Fisher-Yates shuffle algorithm
+// credit: http://bost.ocks.org/mike/shuffle/
+function shuffle(array) {
+  var m = array.length, t, i;
+  while (m) { 
+    i = Math.floor(Math.random() * m--); 
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+  return array;
+}
+
 app.get('/', function(req,res) {
-	photos = []
-	tweets = []
-	counter = 0
+	bricks = []
 	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=4', function (err, resp, body) {
 		if (!err && resp.statusCode == 200) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
-				photos.push(String(item['images']['thumbnail']['url']));
+				t = new Date(1970,0,1);
+				photo = {
+					'thumbnail' : item['images']['thumbnail']['url'],
+					'link' : item['link'],
+					'numComments' : item['comments']['count'],
+					'numLikes' : item['likes']['count'],
+					'created' : t.setSeconds(item['created_time']),
+					'text' : item['caption']['text'],
+					'type' : 'insta',
+					'brick_id' : getRandomInRange(1,5)
+				};
+				bricks.push(photo);
 			});
 		}
 		T.get('/statuses/user_timeline', 
 			{screen_name:  'eternallyjackie', 
-			count: 5},
+			count: 6},
 			function(err, data, resp) {
 				if(!err && resp.statusCode == 200) {
-					tweets = data;
-					tweets.forEach(function(tweet) {
-						console.log(tweet['text']);
-						counter+=1;
-						tweets.push(tweet['text'])
+					tweets = []
+					data.forEach(function(item) {
+						tweet = {}
+						tweet.type = 'tweet'
+						tweet.brick_id = getRandomInRange(1,5);
+						tweet.created_at = item['created_at'];
+						if('retweeted_status' in item) {
+							tweet.text = item['retweeted_status']['text'];
+							tweet.real_name = item['retweeted_status']['user']['name'];
+							tweet.screen_name = item['retweeted_status']['user']['screen_name'];
+							tweet.profile_image = item['retweeted_status']['user']['profile_image_url'];
+							tweet.retweet_count = item['retweeted_status']['retweet_count'];
+							tweet.favorite_count = item['retweeted_status']['favorite_count'];
+							tweet.is_retweet = true;
+						} else {
+							tweet.text = item['text'];
+							tweet.real_name = item['user']['name'];
+							tweet.screen_name = item['user']['screen_name'];
+							tweet.profile_image = item['user']['profile_image_url'];
+							tweet.retweet_count = item['retweet_count'];
+							tweet.favorite_count = item['favorite_count'];
+							tweet.is_retweet = false;
+						}
+						console.log('media' in item['entities'])
+						if('media' in item['entities']) {
+							tweet.media = item['entities']['media'][0]['media_url'];
+						}
+						bricks.push(tweet);
 					});
 				}
-				console.log(counter);
-				res.render('index', {'photos' : photos, 'tweets' : tweets});
+				shuffle(bricks);
+				console.log(JSON.stringify(bricks, null , 4));
+				res.render('index', {'bricks' : bricks});
 			});
 	});
 	
 });
 
-app.get('/1', function(req,res) {
-  res.render('index')
-});
-
 app.listen(app.getPort(), function() {
   app.log("Magic happens on port " + app.getPort());
 });
+
