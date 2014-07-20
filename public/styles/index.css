@@ -85,3 +85,19 @@ q:after {
     opacity: .55;
     font-family: Times New Roman; 
 }
+
+.item {
+    border: 1px solid #e8e8e8;
+    border-radius: 7px;
+    width: 200px;
+    height: 150px;
+}
+
+.stamp {
+    position: absolute;
+    border: 1px solid #e8e8e8;
+    border-radius: 7px;
+    left: 202px;
+    width: 401px;
+    height: 250px;
+}

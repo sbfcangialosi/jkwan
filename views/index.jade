@@ -50,7 +50,7 @@ html
                       i.circular.suitcase.large.icon.link.icon
 
           //- righthand side column
-          .ten.wide.column
+          .eleven.wide.column
             .ui.grid
               .middle.aligned.three.column.row
                 .column
@@ -60,25 +60,18 @@ html
                 .column
                   i.instagram.large.icon.link.icon(style="float: right;")
               .ui.grid
-                .ui.stackable.grid
-                  .two.column.divided.row
-                    //- tweets
-                    .column 
-                      center: a(class="twitter-timeline",href="https://twitter.com/eternallyjackie",data-widget-id="490171119408672768")
-                        Tweets by @eternallyjackie
-
-                    //- instagram
-                    .column 
-                      .instagram-content
-                        center
-                          - photos.forEach(function(photo) {
-                            img.polaroid.breath(src=photo['thumbnail'], title=photo['created'])
-                          - });
-
-              .row
-                .column
-                  <iframe width='100%' height='375px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA'></iframe>
-        .one.wide.column
+                .row
+                  .column
+                    #masonry
+                      - bricks.forEach(function(brick) {
+                        .item(class=brick_id)
+                          - if (brick.type == 'insta') {
+                              img(src=brick.thumbnail)
+                          - } else { // twitter {
+                              .box(width='50px')= brick.text
+                          - }
+                      - });
+                      iframe.stamp(frameBorder='0',src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA')
       .ui.grid
         .sixteen.wide.column.copyright
           center: p &copy; Jacqueline Kwan
@@ -88,3 +81,9 @@ html
   script(src="/public/js/masonry.pkgd.js")
   script.
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+  script.
+    var container = document.querySelector('#masonry');
+    var msnry = new Masonry(container, {
+      itemSelector: '.item',
+      'stamp' : '.stamp'
+    });
