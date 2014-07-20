@@ -72,7 +72,7 @@ html
                       .instagram-content
                         center
                           - photos.forEach(function(photo) {
-                              img.polaroid.breath(src=photo, title="Jun 06, 2012")
+                            img.polaroid.breath(src=photo['thumbnail'], title=photo['created'])
                           - });
 
               .row
@@ -85,5 +85,6 @@ html
 
   script(src="/public/js/jquery.min.js")
   script(src="/public/js/semantic.min.js")
+  script(src="/public/js/masonry.pkgd.js")
   script.
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
