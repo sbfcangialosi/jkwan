@@ -50,16 +50,6 @@ a {
     margin: 0em;
 }
 
-.instagram-content {
-    padding-top: .75em;
-    padding-bottom: .75em;
-    border : 1px solid #e8e8e8;
-    border-radius: 7px;
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .handle {
     font-family: 'typewriter';
     opacity: .7;
@@ -87,17 +77,51 @@ q:after {
 }
 
 .item {
-    border: 1px solid #e8e8e8;
+    border: 1px solid #000;
     border-radius: 7px;
+    margin-bottom: 6px;
+}
+
+.insta {
     width: 200px;
-    height: 150px;
+}
+
+.insta p {
+    text-align: center;
+    font-family: 'typewriter';
+    font-size: 0.85em;
+}
+
+.tweet p {
+    text-align: center;
+    font-family: 'typewriter';
+    font-size: 0.85em;
+}
+
+.insta span {
+    font-family: 'typewriter';
+    font-size: 0.8em;
+}
+
+.tweet span {
+    font-family: 'typewriter';
+    font-size: 0.8em;
+}
+
+.topright {
+    float:right!important;
+    margin: 5px!important;
+}
+
+.tweet {
+  width: 200px;
 }
 
 .stamp {
     position: absolute;
-    border: 1px solid #e8e8e8;
     border-radius: 7px;
-    left: 202px;
-    width: 401px;
+    left: 209px;
+    width: 398px;
     height: 250px;
+    margin-bottom: 5px;
 }

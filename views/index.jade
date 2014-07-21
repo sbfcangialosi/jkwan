@@ -6,7 +6,7 @@ html
     link(rel='stylesheet', href='/public/styles/index.css')
   body
 
-    .container(style="margin-top:30px")
+    .container(style="margin-top:10px")
       //- toplevel grid
       .ui.stackable.grid 
         .middle.aligned.row
@@ -64,11 +64,51 @@ html
                   .column
                     #masonry
                       - bricks.forEach(function(brick) {
-                        .item(class=brick_id)
-                          - if (brick.type == 'insta') {
-                              img(src=brick.thumbnail)
+                          - if (brick.type == 'tweet') {
+                              - if('media' in brick) { // contains a pic
+                                .item.tweet
+                                  i.twitter.icon.topright
+                                  p= brick.created_at
+                                  center
+                                    img(src=brick.media,height="150",width="150")
+                                  p= brick.text
+                                  center
+                                    span
+                                      .ui.label
+                                        i.comment.icon
+                                        =brick.retweet_count
+                                      .ui.label
+                                        i.heart.icon
+                                        =brick.favorite_count
+                              - } else { // only text
+                                .item.tweet
+                                  i.twitter.icon.topright
+                                  p= brick.created_at
+                                  p= brick.text
+                                  center
+                                    span
+                                      .ui.label
+                                        i.comment.icon
+                                        =brick.retweet_count
+                                      .ui.label
+                                        i.heart.icon
+                                        =brick.favorite_count
+                              - }
                           - } else { // twitter {
-                              .box(width='50px')= brick.text
+                              .item.insta
+                                i.instagram.icon.topright
+                                p= brick.created
+                                center
+                                  a(href=brick.link): img(src=brick.thumbnail)
+                                p= brick.text
+                                center
+                                  span
+                                    .ui.label
+                                      i.comment.icon
+                                      =brick.numComments
+                                    .ui.label
+                                      i.heart.icon
+                                      =brick.numLikes
                           - }
                       - });
                       iframe.stamp(frameBorder='0',src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA')
@@ -78,12 +118,18 @@ html
 
   script(src="/public/js/jquery.min.js")
   script(src="/public/js/semantic.min.js")
+  script(src="/public/js/imagesloaded.pkgd.js")
   script(src="/public/js/masonry.pkgd.js")
   script.
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   script.
     var container = document.querySelector('#masonry');
-    var msnry = new Masonry(container, {
-      itemSelector: '.item',
-      'stamp' : '.stamp'
+    var msnry;
+
+    imagesLoaded(container, function() {
+      msnry = new Masonry(container, {
+        itemSelector: '.item',
+        'stamp' : '.stamp',
+        'gutter' : 6
+      });
     });
