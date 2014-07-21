@@ -62,7 +62,7 @@ function shuffle(array) {
 
 app.get('/', function(req,res) {
 	bricks = []
-	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=4', function (err, resp, body) {
+	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=6', function (err, resp, body) {
 		if (!err && resp.statusCode == 200) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
@@ -83,7 +83,7 @@ app.get('/', function(req,res) {
 		}
 		T.get('/statuses/user_timeline', 
 			{screen_name:  'eternallyjackie', 
-			count: 6},
+			count: 8},
 			function(err, data, resp) {
 				if(!err && resp.statusCode == 200) {
 					tweets = []
@@ -91,7 +91,8 @@ app.get('/', function(req,res) {
 						tweet = {}
 						tweet.type = 'tweet'
 						tweet.brick_id = getRandomInRange(1,5);
-						tweet.created_at = item['created_at'];
+						t = new Date(item['created_at']);
+						tweet.created_at = t.toDateString();
 						if('retweeted_status' in item) {
 							tweet.text = item['retweeted_status']['text'];
 							tweet.real_name = item['retweeted_status']['user']['name'];
