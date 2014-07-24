@@ -47,6 +47,23 @@ function getRandomInRange(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function insertLinks(tweet_text) {
+	new_text = "";
+	tweet_text.split(" ").forEach(function(word) {
+		if (word[0] == '@' && word.length > 1) {
+			new_text += "<a href='https://twitter.com/" + word.substr(1, word.length) + "'>" + word + "</a>" + " ";
+		} else if (word[0] == '#' && word.length > 1) {
+			new_text += "<a href='https://twitter.com/hashtag/" + word.substr(1, word.length) + "?src=hash'>" + word + "</a>" + " ";
+		} else {
+			new_text += word + " ";
+		}
+	});
+	return new_text.trim();
+}
+
+function trimDate(date) {
+	return date.split(" ").splice(1,2).join(" ");
+}
 // Fisher-Yates shuffle algorithm
 // credit: http://bost.ocks.org/mike/shuffle/
 function shuffle(array) {
@@ -62,7 +79,7 @@ function shuffle(array) {
 
 app.get('/', function(req,res) {
 	bricks = []
-	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=6', function (err, resp, body) {
+	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=5', function (err, resp, body) {
 		if (!err && resp.statusCode == 200) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
@@ -73,8 +90,8 @@ app.get('/', function(req,res) {
 					'link' : item['link'],
 					'numComments' : item['comments']['count'],
 					'numLikes' : item['likes']['count'],
-					'created' : t.toDateString(),
-					'text' : item['caption']['text'],
+					'created' : trimDate(t.toDateString()),
+					'text' : insertLinks(item['caption']['text']),
 					'type' : 'insta',
 					'brick_id' : getRandomInRange(1,5)
 				};
@@ -83,7 +100,7 @@ app.get('/', function(req,res) {
 		}
 		T.get('/statuses/user_timeline', 
 			{screen_name:  'eternallyjackie', 
-			count: 8},
+			count: 5},
 			function(err, data, resp) {
 				if(!err && resp.statusCode == 200) {
 					tweets = []
@@ -92,19 +109,19 @@ app.get('/', function(req,res) {
 						tweet.type = 'tweet'
 						tweet.brick_id = getRandomInRange(1,5);
 						t = new Date(item['created_at']);
-						tweet.created_at = t.toDateString();
+						tweet.created_at = trimDate(t.toDateString());
 						if('retweeted_status' in item) {
-							tweet.text = item['retweeted_status']['text'];
+							tweet.text = insertLinks(item['retweeted_status']['text']);
 							tweet.real_name = item['retweeted_status']['user']['name'];
-							tweet.screen_name = item['retweeted_status']['user']['screen_name'];
+							tweet.screen_name = '@' + item['retweeted_status']['user']['screen_name'];
 							tweet.profile_image = item['retweeted_status']['user']['profile_image_url'];
 							tweet.retweet_count = item['retweeted_status']['retweet_count'];
 							tweet.favorite_count = item['retweeted_status']['favorite_count'];
 							tweet.is_retweet = true;
 						} else {
-							tweet.text = item['text'];
+							tweet.text = insertLinks(item['text']);
 							tweet.real_name = item['user']['name'];
-							tweet.screen_name = item['user']['screen_name'];
+							tweet.screen_name = '@' + item['user']['screen_name'];
 							tweet.profile_image = item['user']['profile_image_url'];
 							tweet.retweet_count = item['retweet_count'];
 							tweet.favorite_count = item['favorite_count'];
