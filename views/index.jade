@@ -39,7 +39,7 @@ html
 
               .row //- icons
                 .column
-                  center
+                  center: .circles
                     a(href="mailto:jkwan@terpmail.umd.edu")
                       i.circular.mail.large.icon.link.icon
                     a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
@@ -66,33 +66,23 @@ html
                       - bricks.forEach(function(brick) {
                           - if (brick.type == 'tweet') {
                               - if('media' in brick) { // contains a pic
-                                .item.tweet
+                                .item.tweet.tweet-pic
                                   i.twitter.icon.topright
                                   p= brick.created_at
                                   center
                                     img(src=brick.media,height="150",width="150")
-                                  p= brick.text
-                                  center
-                                    span
-                                      .ui.label
-                                        i.comment.icon
-                                        =brick.retweet_count
-                                      .ui.label
-                                        i.heart.icon
-                                        =brick.favorite_count
+                                  p!= brick.text
                               - } else { // only text
-                                .item.tweet
+                                .item.tweet.tweet-text
                                   i.twitter.icon.topright
-                                  p= brick.created_at
-                                  p= brick.text
-                                  center
-                                    span
-                                      .ui.label
-                                        i.comment.icon
-                                        =brick.retweet_count
-                                      .ui.label
-                                        i.heart.icon
-                                        =brick.favorite_count
+                                  p(style="float:right;")= brick.created_at
+                                  p
+                                    img.profile(src=brick.profile_image, height='48', width='48')
+                                    b= brick.real_name
+                                    br
+                                    =brick.screen_name
+                                  br
+                                  span!= brick.text
                               - }
                           - } else { // twitter {
                               .item.insta
@@ -100,15 +90,7 @@ html
                                 p= brick.created
                                 center
                                   a(href=brick.link): img(src=brick.thumbnail)
-                                p= brick.text
-                                center
-                                  span
-                                    .ui.label
-                                      i.comment.icon
-                                      =brick.numComments
-                                    .ui.label
-                                      i.heart.icon
-                                      =brick.numLikes
+                                p!= brick.text
                           - }
                       - });
                       iframe.stamp(frameBorder='0',src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA')

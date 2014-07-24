@@ -22,7 +22,7 @@ h1 {
     margin: 0em;
 }
 
-a {
+.circles a {
     text-decoration: none;
     color: #000;
 }
@@ -82,6 +82,10 @@ q:after {
     margin-bottom: 6px;
 }
 
+.item img {
+    border-radius: 7px;
+}
+
 .insta {
     width: 200px;
 }
@@ -92,29 +96,56 @@ q:after {
     font-size: 0.85em;
 }
 
-.tweet p {
-    text-align: center;
-    font-family: 'typewriter';
-    font-size: 0.85em;
-}
-
 .insta span {
     font-family: 'typewriter';
     font-size: 0.8em;
 }
 
+.tweet-text {
+    width: 325px;
+}
+
+.tweet-pic {
+    width: 200px;
+}
+
+.tweet p {
+    font-family: 'typewriter';
+    font-size: 0.85em;
+}
+
+.tweet b {
+    margin-top: 10px;
+    margin-left: 1px;
+    margin-right: 2px;
+}
+
+.tweet .profile {
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 8px;
+    margin-bottom: 3px;
+    height: 48px;
+    width: 48px;
+    border-radius: 7px;
+}
+
+.tweet .date {
+    float: right;
+}
+
 .tweet span {
     font-family: 'typewriter';
     font-size: 0.8em;
+    line-height: 115%;
+    display:inline-block;
+    padding: 5px;
 }
 
 .topright {
     float:right!important;
     margin: 5px!important;
-}
-
-.tweet {
-  width: 200px;
 }
 
 .stamp {
