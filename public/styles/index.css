@@ -102,7 +102,7 @@ q:after {
 }
 
 .tweet-text {
-    width: 325px;
+    width: 404px;
 }
 
 .tweet-pic {
@@ -152,7 +152,7 @@ q:after {
     position: absolute;
     border-radius: 7px;
     left: 209px;
-    width: 398px;
+    width: 407px;
     height: 250px;
     margin-bottom: 5px;
 }
