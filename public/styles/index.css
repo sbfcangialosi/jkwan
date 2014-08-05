@@ -124,8 +124,8 @@ q:after {
     line-height: 10px;
 }
 
-#info {
-
+#skinny {
+    padding: 0.5rem 0 0 !important;
 }
 
 div.leaflet-control-attribution.leaflet-control {
