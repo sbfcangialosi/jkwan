@@ -6,14 +6,14 @@ html
     link(rel='stylesheet', href='/public/styles/index.css')
   body
 
-    .container(style="margin-top:10px")
+    .container
       //- toplevel grid
-      .ui.stackable.grid 
-        .middle.aligned.row
+      .ui.stackable.grid
+        .top.aligned.row
           //- lefthand side column
-          .five.wide.column 
+          .five.wide.column
 
-            .ui.grid  //- lefthand inner grid
+            .ui.grid#info(style="transform: scale(0.9); -moz-transform: scale(0.9); -webkit-transform: scale(0.9); margin-top: -15px") //- lefthand inner grid
               .row //- latin quote
                 .column
                   center
@@ -24,7 +24,7 @@ html
               .row // - picture
                 .column
                   center
-                    img.rounded(height="236", width="260", src="/public/images/jackie.jpg")
+                    img.rounded(height="196", width="216", src="/public/images/jackie.jpg")
 
               .row //- name
                 .column
@@ -37,66 +37,48 @@ html
                     p Nineteen years young.
                     p Aspiring financial consultant.
 
-              .row //- icons
+            .ui.grid
+              .row
                 .column
-                  center: .circles
-                    a(href="mailto:jkwan@terpmail.umd.edu")
-                      i.circular.mail.large.icon.link.icon
-                    a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
-                      i.circular.linkedin.large.icon.link.icon
-                    a(href="http://facebook.com/eternallyjackie")
-                      i.circular.facebook.large.icon.link.icon
-                    a(href="/Resume_JKwan.pdf")
-                      i.circular.suitcase.large.icon.link.icon
+                  center
+                      iframe#map(frameBorder='0',src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA')
 
           //- righthand side column
           .eleven.wide.column
-            .ui.grid
-              .middle.aligned.three.column.row
-                .column
-                  i.twitter.large.icon.link.icon
-                .column
-                  center: span.handle @eternallyjackie
-                .column
-                  i.instagram.large.icon.link.icon(style="float: right;")
               .ui.grid
-                .row
+                .row#wall
                   .column
                     #masonry
+
                       - bricks.forEach(function(brick) {
                           - if (brick.type == 'tweet') {
                               - if('media' in brick) { // contains a pic
-                                .item.tweet.tweet-pic
-                                  i.twitter.icon.topright
-                                  p= brick.created_at
-                                  center
-                                    img(src=brick.media,height="150",width="150")
-                                  p!= brick.text
+                                .item.tweet-pic
+                                  img(src=brick.media,height="150",width="150")
                               - } else { // only text
-                                .item.tweet.tweet-text
-                                  i.twitter.icon.topright
-                                  p(style="float:right;")= brick.created_at
-                                  p
-                                    img.profile(src=brick.profile_image, height='48', width='48')
-                                    b= brick.real_name
-                                    br
-                                    =brick.screen_name
-                                  br
+                                .item.tweet-text
                                   span!= brick.text
                               - }
                           - } else { // twitter {
                               .item.insta
-                                i.instagram.icon.topright
-                                p= brick.created
-                                center
-                                  a(href=brick.link): img(src=brick.thumbnail)
-                                p!= brick.text
+                                a(href=brick.link): img(src=brick.thumbnail,height="150",width="150")
                           - }
                       - });
-                      iframe.stamp(frameBorder='0',src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA')
-      .ui.grid
-        .sixteen.wide.column.copyright
-          center: p &copy; Jacqueline Kwan
+                .one.column.row
+                  .column
+                    center: .circles
+                      a(href="mailto:jkwan@terpmail.umd.edu")
+                        i.circular.twitter.large.icon.link.icon
+                      a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
+                        i.circular.instagram.large.icon.link.icon
+                      a(href="mailto:jkwan@terpmail.umd.edu")
+                        i.circular.mail.large.icon.link.icon
+                      a(href=" www.linkedin.com/pub/jacqueline-kwan/80/452/88/")
+                        i.circular.linkedin.large.icon.link.icon
+                      a(href="http://facebook.com/eternallyjackie")
+                        i.circular.facebook.large.icon.link.icon
+                      a(href="/Resume_JKwan.pdf")
+                        i.circular.suitcase.large.icon.link.icon
 
   script(src="/public/js/jquery.min.js")
   script(src="/public/js/semantic.min.js")
@@ -105,14 +87,24 @@ html
   script.
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   script.
+    $(document).ready(function(){
+        var wall_height = Math.floor($(window).height() * .84);
+        var map_height = Math.floor($(window).height() * .32);
+        $('#wall').css({
+            'overflow-x' : 'hidden',
+            'overflow-y' : 'scroll',
+            'height' : wall_height + "px"
+          });
+        $('#map').css({
+            'height' : map_height + "px"
+          });
+      });
     var container = document.querySelector('#masonry');
     var msnry;
-
     imagesLoaded(container, function() {
       msnry = new Masonry(container, {
         itemSelector: '.item',
-        'stamp' : '.stamp',
-        'gutter' : 6,
+        'gutter' : 10,
         'columnWidth' : '.insta'
       });
     });
