@@ -120,22 +120,7 @@ q:after {
     border-radius: 5px;
 }
 
-
-.stamp{
-    width: 100%;
-    margin-top: -5px;
-}
-
-.leaflet-container{
-    font-size: 8px;
-    line-height: 10px;
-}
-
 #skinny {
     padding: 0.5rem 0 0 !important;
 }
 
-div.leaflet-control-attribution.leaflet-control {
-    font-size:10px;
-    line-height: 10px;
-}
