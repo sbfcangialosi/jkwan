@@ -47,7 +47,17 @@ function getRandomInRange(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function insertLinks(tweet_text) {
+function removeLinks(tweet_text) {
+	new_text = "";
+	tweet_text.split(" ").forEach(function(word) {
+		if (word.indexOf("http://t.co") == -1) {
+			new_text += word + " ";
+		}
+	});
+	return new_text.trim();
+}
+
+function insertTags(tweet_text) {
 	new_text = "";
 	tweet_text.split(" ").forEach(function(word) {
 		if (word[0] == '@' && word.length > 1) {
@@ -60,6 +70,7 @@ function insertLinks(tweet_text) {
 	});
 	return new_text.trim();
 }
+
 
 // Fisher-Yates shuffle algorithm
 // credit: http://bost.ocks.org/mike/shuffle/
@@ -76,7 +87,7 @@ function shuffle(array) {
 
 app.get('/', function(req,res) {
 	bricks = []
-	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=20', function (err, resp, body) {
+	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=25', function (err, resp, body) {
 		if (!err && resp.statusCode == 200) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
@@ -92,7 +103,7 @@ app.get('/', function(req,res) {
 		}
 		T.get('/statuses/user_timeline',
 			{screen_name:  'eternallyjackie',
-			count: 15},
+			count: 20},
 			function(err, data, resp) {
 				if(!err && resp.statusCode == 200) {
 					tweets = []
@@ -101,16 +112,18 @@ app.get('/', function(req,res) {
 						tweet.type = 'tweet'
 						tweet.brick_id = getRandomInRange(1,5);
 						if('retweeted_status' in item) {
-							tweet.text = insertLinks(item['retweeted_status']['text']);
+							tweet.text = removeLinks(insertTags(item['retweeted_status']['text']));
+							tweet.profile_image = item['retweeted_status']['user']['profile_image_url'];
 							tweet.is_retweet = true;
 						} else {
-							tweet.text = insertLinks(item['text']);
+							tweet.text = removeLinks(insertTags(item['text']));
+							tweet.profile_image = item['user']['profile_image_url'];
 							tweet.is_retweet = false;
 						}
-						if('media' in item['entities']) {
-							tweet.media = item['entities']['media'][0]['media_url'];
+						if(!('media' in item['entities'])) {
+							bricks.push(tweet);
 						}
-						bricks.push(tweet);
+
 					});
 				}
 				shuffle(bricks);

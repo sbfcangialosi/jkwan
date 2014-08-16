@@ -17,9 +17,9 @@ body, html {
 }
 
 p {
-	font-family : 'typewriter';
+    font-family : 'typewriter';
     font-size: 1em;
-    opacity: .7;
+    opacity: .8;
     margin: 7px;
 }
 
@@ -102,15 +102,22 @@ q:after {
     height: 150px;
 }
 
-.tweet-text {
+.tweet {
     box-sizing: border-box;
     font-family: 'typewriter';
     font-size: 0.75em;
     padding: 7px;
 }
 
-.tweet-pic {
-    height: 150px;
+.tweet .profile {
+    float: left;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 8px;
+    margin-bottom: 0px;
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
 }
 
 

@@ -41,7 +41,7 @@ html
               .row
                 .column
                   center
-                      iframe#map(frameBorder='0',src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution,zoompan.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA')
+                      iframe#map(frameBorder='0',src='https://a.tiles.mapbox.com/v4/fcangial.j0b0in7e/attribution.html?access_token=pk.eyJ1IjoiZmNhbmdpYWwiLCJhIjoiSEE2NW84ayJ9.I_SmNeUGjd30kkUHN9hPVA#0/30.4/7.6')
 
           //- righthand side column
           .eleven.wide.column
@@ -52,19 +52,15 @@ html
 
                       - bricks.forEach(function(brick) {
                           - if (brick.type == 'tweet') {
-                              - if('media' in brick) { // contains a pic
-                                .item.tweet-pic
-                                  img(src=brick.media,height="150",width="150")
-                              - } else { // only text
-                                .item.tweet-text
-                                  span!= brick.text
-                              - }
-                          - } else { // twitter {
+                              .item.tweet
+                                a(href="https://twitter.com/eternallyjackie"): img.profile(src=brick.profile_image)
+                                span!= brick.text
+                          - } else {
                               .item.insta
                                 a(href=brick.link): img(src=brick.thumbnail,height="150",width="150")
                           - }
                       - });
-                .one.column.row
+                .one.column.row#skinny
                   .column
                     center: .circles
                       a(href="mailto:jkwan@terpmail.umd.edu")
