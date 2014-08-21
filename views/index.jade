@@ -2,6 +2,7 @@ doctype html
 html
   head
     title= title
+    link(rel='stylesheet', href='/public/styles/normalize.css')
     link(rel='stylesheet', href='/public/styles/semantic.min.css')
     link(rel='stylesheet', href='/public/styles/index.css')
   body
@@ -83,7 +84,7 @@ html
   script.
     var set_heights = function() {
       var wall_height = Math.floor($(window).height() * .84);
-      var map_height = Math.floor($(window).height() * .32);
+      var map_height = Math.floor($(window).height() * .30);
       $('#wall').css({
           'overflow-x' : 'hidden',
           'overflow-y' : 'scroll',
