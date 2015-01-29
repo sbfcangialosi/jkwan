@@ -87,7 +87,7 @@ html
       var map_height = Math.floor($(window).height() * .30);
       $('#wall').css({
           'overflow-x' : 'hidden',
-          'overflow-y' : 'scroll',
+          'overflow-y' : 'auto',
           'height' : wall_height + "px"
         });
       $('#map').css({
@@ -104,6 +104,6 @@ html
       msnry = new Masonry(container, {
         itemSelector: '.item',
         'gutter' : 10,
-        'columnWidth' : '.insta'
+        'columnWidth' : '.tweet'
       });
     });
