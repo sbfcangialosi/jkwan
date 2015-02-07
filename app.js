@@ -8,13 +8,31 @@ var express = require('express'),
 
 var app = express();
 
-var T = new Twit({
-	consumer_key: 'mr87LvmetQRQg9gR7IPDPexWX',
-	consumer_secret: 'iAETAqN6RurKv1VWeS68vegvLbMfs1tFh3LYQbE2n5qQ4VELRC',
-	access_token: '2625256832-686SDrJGW9IPstSPQScHZPvAl9vNzAindSgLHQE',
-	access_token_secret: '6OThS6l2NYBEs4QFIcnawSucjWlEcujLKyRFTFECirzP1'
-});
+var T, access_token;
 
+function readSecrets() {
+    fs.readFile('secrets/twitter', 'utf8', function(err,data) {
+        if(err) {
+            return console.log(err);
+        }
+        data = data.toString().split("\n");
+        T = new Twit({
+            consumer_key : data[0],
+            consumer_secret : data[1],
+            access_token : data[2],
+            access_token_secret : data[3]
+        });
+    });
+
+    fs.readFile('secrets/instagram', 'utf8', function(err,data) {
+        if (err) {
+            return console.log(err);
+        }
+        access_token = data.toString().replace(/\n/g,'');
+    });
+}
+
+readSecrets();
 
 app.set('view engine', 'jade'); //templates located in /views/*.jade
 app.set('case sensitive routing', 'true');
@@ -85,21 +103,12 @@ function shuffle(array) {
   return array;
 }
 
-var access_token;
-
-app.get('/oauth', function(req,res) {
-    access_token = req.query.access_token;
-    console.log(req.query);
-    res.send('thanks');
-});
-
-app.get('/access_token', function(req,res) {
-    res.send(access_token);
-});
-
 app.get('/', function(req,res) {
 	bricks = []
-	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=ce3ad03e1e254b138203e88f9f62a997&count=25', function (err, resp, body) {
+    if (!T || !access_token) {
+        readSecrets();
+    }
+	request('https://api.instagram.com/v1/users/23362758/media/recent?access_token='+access_token+'&count=25', function (err, resp, body) {
 		if (!err && resp.statusCode == 200) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
