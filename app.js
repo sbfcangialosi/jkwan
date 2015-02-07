@@ -85,9 +85,21 @@ function shuffle(array) {
   return array;
 }
 
+var access_token;
+
+app.get('/oauth', function(req,res) {
+    access_token = req.query.access_token;
+    console.log(req.query);
+    res.send('thanks');
+});
+
+app.get('/access_token', function(req,res) {
+    res.send(access_token);
+});
+
 app.get('/', function(req,res) {
 	bricks = []
-	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=c836878d8188457799e29b06d9205263&count=25', function (err, resp, body) {
+	request('https://api.instagram.com/v1/users/23362758/media/recent?client_id=ce3ad03e1e254b138203e88f9f62a997&count=25', function (err, resp, body) {
 		if (!err && resp.statusCode == 200) {
 			instagram = JSON.parse(body);
 			instagram['data'].forEach(function(item){
