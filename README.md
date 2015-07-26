@@ -1,4 +1,4 @@
-jkwan
+Portfolio
 =====
 
-Portfolio website
+Portfolio website for Jacqueline Kwan (UMD '16). 
